@@ -76,7 +76,7 @@ claude plugin install pm-execution@pm-skills
 
 ### Other AI assistants (skills only)
 
-The `skills/*/SKILL.md` files follow the universal skill format and work with any tool that reads it. Commands (`/slash-commands`) are Claude-specific.
+The `skills/*/SKILL.md` files follow the universal skill format and work with any tool that reads them. Commands (`/slash-commands`) are Claude-specific.
 
 | Tool | How to use | What works |
 |------|-----------|------------|
@@ -95,6 +95,7 @@ done
 
 # Example: copy all skills for Gemini CLI (global)
 for plugin in pm-*/; do
+  mkdir -p ~/.gemini/skills/
   cp -r "$plugin/skills/"* ~/.gemini/skills/ 2>/dev/null
 done
 ```
