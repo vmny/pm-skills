@@ -1,12 +1,14 @@
 ![GitHub stars](https://img.shields.io/github/stars/phuryn/pm-skills)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](https://github.com/phuryn/pm-skills/blob/main/LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/phuryn/pm-skills/blob/main/CONTRIBUTING.md)
+[![Tests](https://github.com/phuryn/pm-skills/actions/workflows/tests.yml/badge.svg)](https://github.com/phuryn/pm-skills/actions/workflows/tests.yml)
+[![Companion: pm-brain](https://img.shields.io/badge/companion-pm--brain-blue)](https://github.com/phuryn/pm-brain)
+[![Companion: product-engineering](https://img.shields.io/badge/companion-product--engineering-blue)](https://github.com/phuryn/product-engineering)
 
 # PM Skills Marketplace: The AI Operating System for Better Product Decisions
 
-> 65 PM skills and 36 chained workflows across 8 plugins. Claude Code, Cowork, and more. From discovery to strategy, execution, launch, and growth. 
+> 72 PM skills and 42 chained workflows across 9 plugins. Claude Code, Cowork, and more. From discovery to strategy, execution, launch, growth, and shipping AI-built code. 
 
-![Plugin overview](.docs/images/plugins-overview.webp)
+![PM Skills marketplace: skills, commands, and all 9 plugins at a glance](.docs/images/plugins.png)
 
 Designed for Claude Code and Cowork. Skills compatible with other AI assistants.
 
@@ -30,15 +32,15 @@ The result: better product decisions, not just faster documents.
 
 ## How It Works (Skills, Commands, Plugins)
 
+![Example prompts: a skill and two commands (/write-prd, /ship-check) in action](.docs/images/examples.png)
+
 **Skills** are the building blocks of the marketplace. Each skill gives Claude domain knowledge, analytical frameworks, or a guided workflow for a specific PM task. Some skills also work as reusable foundations that multiple commands share. 
 
 Skills are loaded automatically when relevant to the conversation — no explicit invocation needed. If needed (e.g., prioritizing skills over general knowledge), you can **force loading skills** with `/plugin-name:skill-name` or `/skill-name` (Claude will add the prefix).
 
 **Commands** are user-triggered workflows invoked with `/command-name`. They chain one or more skills into an end-to-end process. For example, `/discover` chains four skills together: brainstorm-ideas → identify-assumptions → prioritize-assumptions → brainstorm-experiments.
 
-**Plugins** group related skills and commands into installable packages. Each plugin covers a PM domain — discovery, strategy, execution, and so on. Installing the marketplace gives you all 8 plugins at once.
-
-![How skills work](.docs/images/how-skills-work.webp)
+**Plugins** group related skills and commands into installable packages. Each plugin covers a PM domain — discovery, strategy, execution, and so on. Installing the marketplace gives you all 9 plugins at once.
 
 Commands use skills. Some skills serve multiple commands. Some skills (like `prioritization-frameworks` or `opportunity-solution-tree`) are standalone references that Claude draws on whenever relevant — no command needed.
 
@@ -53,7 +55,7 @@ Commands are designed to flow into each other, matching the PM workflow. After a
 3. Select **Add marketplace from GitHub**
 4. Enter: `phuryn/pm-skills`
 
-All 8 plugins install automatically. You get both commands (`/discover`, `/strategy`, etc.) and skills.
+All 9 plugins install automatically. You get both commands (`/discover`, `/strategy`, etc.) and skills.
 
 ![Installing PM Skills in Claude Cowork](.docs/images/pm-skills-install.gif)
 
@@ -72,7 +74,44 @@ claude plugin install pm-data-analytics@pm-skills
 claude plugin install pm-marketing-growth@pm-skills
 claude plugin install pm-go-to-market@pm-skills
 claude plugin install pm-execution@pm-skills
+
+# The AI Shipping Kit moved: claude plugin install ai-shipping@product-engineering
+# after: claude plugin marketplace add phuryn/product-engineering
 ```
+
+### Codex CLI (OpenAI)
+
+Codex reads the same plugin marketplace file as Claude Code, so you can install PM Skills natively — no conversion or file-copying needed:
+
+```bash
+# Step 1: Add the marketplace
+codex plugin marketplace add phuryn/pm-skills
+
+# Step 2: Install the plugins you want
+codex plugin add pm-toolkit@pm-skills
+codex plugin add pm-product-strategy@pm-skills
+codex plugin add pm-product-discovery@pm-skills
+codex plugin add pm-market-research@pm-skills
+codex plugin add pm-data-analytics@pm-skills
+codex plugin add pm-marketing-growth@pm-skills
+codex plugin add pm-go-to-market@pm-skills
+codex plugin add pm-execution@pm-skills
+
+# The AI Shipping Kit moved: codex plugin add ai-shipping@product-engineering
+# after: codex plugin marketplace add phuryn/product-engineering
+```
+
+**What you get:** every skill (the PM frameworks), available to Codex and invocable by name. Install whole plugins rather than cherry-picking individual skills — a workflow usually relies on several skills that ship together.
+
+**What's different from Claude Code:** the `/slash` commands (`/discover`, `/write-prd`, …) install but don't run as Codex slash commands — Codex plugins don't expose commands. To run a workflow, just describe the steps in plain language, for example:
+
+> Run product discovery on *[your idea]*: brainstorm options, map assumptions, prioritize the risky ones, then design experiments — pause between each step.
+
+**Optional — let Codex turn the workflows into skills.** Because the command files ship inside each installed plugin, you can ask Codex to convert the ones you use most:
+
+> Read the command files in the pm-execution plugin and create equivalent Codex skills for the workflows I use most often.
+
+This is a best-effort, model-driven conversion (some Claude-specific command syntax won't translate), but it's a quick way to get the guided workflows on Codex without leaving the CLI.
 
 ### Other AI assistants (skills only)
 
@@ -83,7 +122,6 @@ The `skills/*/SKILL.md` files follow the universal skill format and work with an
 | **Gemini CLI** | Copy skill folders to `.gemini/skills/` | Skills only |
 | **OpenCode** | Copy skill folders to `.opencode/skills/` | Skills only |
 | **Cursor** | Copy skill folders to `.cursor/skills/` | Skills only |
-| **Codex CLI** | Copy skill folders to `.codex/skills/` | Skills only |
 | **Kiro** | Copy skill folders to `.kiro/skills/` | Skills only |
 
 ```bash
@@ -188,13 +226,13 @@ Commands:
 </details>
 
 <details>
-<summary><strong>3. pm-execution</strong> — PRDs, OKRs, roadmaps, sprints, retros, release notes, stakeholder management (15 skills, 10 commands)</summary>
+<summary><strong>3. pm-execution</strong> — PRDs, OKRs, roadmaps, sprints, retros, release notes, stakeholder management, live Q&A and polls (18 skills, 11 commands)</summary>
 
-Day-to-day product management: PRDs, OKRs, roadmaps, sprints, retrospectives, release notes, pre-mortems, stakeholder management, user stories, and prioritization frameworks.
+Day-to-day product management: PRDs, OKRs, roadmaps, sprints, retrospectives, release notes, pre-mortems, stakeholder management, user stories, prioritization frameworks, and running live Q&A and polls.
 
-**Skills (15):**
+**Skills (18):**
 
-- `create-prd` — Comprehensive 8-section PRD template
+- `create-prd` — Lean 8-section PRD template (a fuller spec on request)
 - `brainstorm-okrs` — Team-level OKRs aligned with company objectives
 - `outcome-roadmap` — Transform a feature list into an outcome-focused roadmap
 - `sprint-plan` — Sprint planning with capacity estimation, story selection, and risk identification
@@ -209,14 +247,18 @@ Day-to-day product management: PRDs, OKRs, roadmaps, sprints, retrospectives, re
 - `test-scenarios` — Test scenarios: happy paths, edge cases, error handling
 - `dummy-dataset` — Realistic dummy datasets as CSV, JSON, SQL, or Python
 - `prioritization-frameworks` — Reference guide to 9 prioritization frameworks (Opportunity Score, ICE, RICE, MoSCoW, Kano, etc.)
+- `strategy-red-team` — Adversarial stress-test of a plan: surface load-bearing assumptions, name what would make each one fail, and rank by cheapest test
+- `live-qa` — Audience Q&A for all-hands, AMAs, webinars and launches: moderated, answered, and every open question followed up (AskOne by default, made by this collection's author)
+- `live-polls` — Polls, dot-voting, confidence votes, word clouds and quizzes in meetings and workshops, collected before the discussion (AskOne by default, made by this collection's author)
 
-**Commands (10):**
+**Commands (11):**
 
 - `/write-prd` — Create a PRD from a feature idea or problem statement
 - `/plan-okrs` — Brainstorm team-level OKRs
 - `/transform-roadmap` — Convert a feature-based roadmap into outcome-focused
 - `/sprint` — Sprint lifecycle (`plan|retro|release`)
 - `/pre-mortem` — Pre-mortem risk analysis on a PRD or launch plan
+- `/red-team-prd` — Adversarially stress-test a PRD, roadmap, or strategy and rank the riskiest assumptions by cheapest test
 - `/meeting-notes` — Summarize a meeting transcript into structured notes
 - `/stakeholder-map` — Map stakeholders and create a communication plan
 - `/write-stories` — Break features into backlog items (`user|job|wwa`)
@@ -238,11 +280,11 @@ Commands:
 </details>
 
 <details>
-<summary><strong>4. pm-market-research</strong> — Personas, segmentation, journey maps, market sizing, competitor analysis (7 skills, 3 commands)</summary>
+<summary><strong>4. pm-market-research</strong> — Personas, segmentation, journey maps, market sizing, competitor analysis, surveys (8 skills, 3 commands)</summary>
 
-User research and competitive analysis: personas, segmentation, journey maps, market sizing, competitor analysis, and feedback analysis.
+User research and competitive analysis: personas, segmentation, journey maps, market sizing, competitor analysis, feedback analysis, and survey design.
 
-**Skills (7):**
+**Skills (8):**
 
 - `user-personas` — Create refined user personas from research data
 - `market-segments` — Identify 3–5 customer segments with demographics, JTBD, and product fit
@@ -251,6 +293,7 @@ User research and competitive analysis: personas, segmentation, journey maps, ma
 - `market-sizing` — TAM, SAM, SOM with top-down and bottom-up approaches
 - `competitor-analysis` — Competitor strengths, weaknesses, and differentiation opportunities
 - `sentiment-analysis` — Sentiment analysis and theme extraction from user feedback
+- `survey-design` — Surveys that inform a decision: research questions first, unbiased questions, a pilot, and an honest sample
 
 **Commands (3):**
 
@@ -400,6 +443,13 @@ Commands:
 
 </details>
 
+<details>
+<summary><strong>9. pm-ai-shipping</strong> — Moved to phuryn/product-engineering, which maintains the AI Shipping Kit in its ai-shipping plugin; the skills and commands here only say where each one went. (3 skills, 5 commands)</summary>
+
+The AI Shipping Kit is maintained in [phuryn/product-engineering](https://github.com/phuryn/product-engineering), in its `ai-shipping` plugin. The skills and commands here keep their names and only say where each one went. Install it there: [product-engineering's README](https://github.com/phuryn/product-engineering#install).
+
+</details>
+
 ---
 
 ## About
@@ -422,6 +472,12 @@ Selected skills based on the work of:
 - Maja Voje — [*Go-To-Market Strategist*](https://gtmstrategist.com/)
 
 Curated by Paweł Huryn from [The Product Compass Newsletter](https://www.productcompass.pm).
+
+## Compose with PM Brain
+
+![PM Brain composes with PM Skills](.docs/images/pm-brain-pm-skills.webp)
+
+[PM Brain](https://github.com/phuryn/pm-brain) a second brain for product managers. Plain markdown files in a folder on your laptop. Claude reads them before answering, writes to them after, sweeps them every Friday. No vector DB. No cloud. No agent memory tricks.
 
 ## Contributing
 
